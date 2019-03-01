@@ -12,7 +12,7 @@
 
 - name: Install ModPageSpeed module & repository
   apt:
-    name: "{{ pagespeed_apache_repo }}"
+    deb: "{{ pagespeed_apache_repo }}"
     state: present
   when: ansible_os_family == 'Debian'
 

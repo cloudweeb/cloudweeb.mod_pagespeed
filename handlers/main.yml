@@ -1,0 +1,12 @@
+---
+- name: restart apache
+  service:
+    name: "{{ pagespeed_apache_daemon }}"
+    state: reloaded
+  when: not pagespeed_cpanel
+  listen: restart apache
+
+- name: restart apache cpanel
+  command: /scripts/restartsrv_httpd --reload
+  when: pagespeed_cpanel
+  listen: restart apache

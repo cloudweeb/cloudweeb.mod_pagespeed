@@ -1,0 +1,6 @@
+---
+pagespeed_apache_repo: https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_x86_64.rpm
+pagespeed_apache_module_dir: /usr/lib64/httpd/modules
+pagespeed_apache_daemon: httpd
+pagespeed_apache_conf_path: /etc/httpd/conf.d/pagespeed.conf
+pagespeed_apache_cpanel_conf_path: /etc/apache2/conf.modules.d/456_pagespeed.conf

@@ -1,0 +1,5 @@
+---
+pagespeed_apache_repo: https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb
+pagespeed_apache_module_dir: /usr/lib/apache2/modules
+pagespeed_apache_daemon: apache2
+pagespeed_apache_conf_path: /etc/apache2/mods-available/pagespeed.conf

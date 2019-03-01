@@ -1,0 +1,16 @@
+---
+- name: Set ModPageSpeed configuration file
+  template:
+    src: mod-pagespeed.conf.j2
+    dest: "{{ pagespeed_apache_conf_path }}"
+    backup: true
+  when: pagespeed_webserver == 'apache' and not pagespeed_cpanel
+  notify: restart apache
+
+- name: Set EA4 ModPageSpeed configuration file
+  template:
+    src: mod-pagespeed.conf.j2
+    dest: "{{ pagespeed_apache_cpanel_conf_path }}"
+    backup: true
+  when: pagespeed_webserver == 'apache' and pagespeed_cpanel
+  notify: restart apache

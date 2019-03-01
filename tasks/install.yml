@@ -1,0 +1,45 @@
+---
+- name: Get mod_ruid2 status
+  shell: /usr/sbin/apachectl -M 2>&1 | grep ruid2_module
+  register: pagespeed_mod_ruid_status
+  failed_when: false
+  changed_when: false
+
+- name: Check if mod_ruid2 is enabled
+  fail:
+    msg: Mod Pagespeed not compatible with Mod Ruid, please disable the Mod Ruid
+  when: pagespeed_mod_ruid_status.stdout != ""
+
+- name: Install ModPageSpeed module & repository
+  apt:
+    name: "{{ pagespeed_apache_repo }}"
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- block:
+
+    - name: Install ModPageSpeed repository dependency
+      yum:
+        name: at
+        state: present
+
+    - name: Install ModPageSpeed module & repository
+      yum:
+        name: "{{ pagespeed_apache_repo }}"
+        state: present
+
+  when: ansible_os_family == 'RedHat' and not pagespeed_cpanel
+
+- block:
+
+    - name: Install EA4 experimental repository
+      yum:
+        name: ea4-experimental
+        state: present
+
+    - name: Install EA4 ModPageSpeed
+      yum:
+        name: ea-apache24-mod_pagespeed
+        state: present
+
+  when: ansible_os_family == 'RedHat' and pagespeed_cpanel

@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: mod_pagespeed
   author: Agnesius Santo Naibaho
   description: Install mod_pagespeed on apache web server
   company: Cloudweeb

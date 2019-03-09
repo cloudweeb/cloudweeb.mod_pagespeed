@@ -17,7 +17,10 @@ galaxy_info:
       versions:
         - stretch
 
-  galaxy_tags: []
+  galaxy_tags:
+    - apache
+    - web
+    - webserver
 
 dependencies:
   - geerlingguy.apache

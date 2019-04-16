@@ -1,6 +1,8 @@
 ---
 - name: Get mod_ruid2 status
-  shell: /usr/sbin/apachectl -M 2>&1 | grep ruid2_module
+  shell: |
+    set -o pipefail
+    /usr/sbin/apachectl -M 2>&1 | grep ruid2_module
   register: pagespeed_mod_ruid_status
   failed_when: false
   changed_when: false
@@ -8,7 +10,7 @@
 - name: Check if mod_ruid2 is enabled
   fail:
     msg: Mod Pagespeed not compatible with Mod Ruid, please disable the Mod Ruid
-  when: pagespeed_mod_ruid_status.stdout != ""
+  when: not pagespeed_mod_ruid_status.stdout
 
 - name: Install ModPageSpeed module & repository
   apt:

@@ -1,7 +1,7 @@
 Ansible Role ModPageSpeed
 =========
 
-[![Build Status](https://travis-ci.com/cloudweeb/ansible-role-mod_pagespeed.svg?branch=master)](https://travis-ci.com/cloudweeb/ansible-role-mod_pagespeed)
+[![Build Status](https://travis-ci.com/cloudweeb/cloudweeb.mod_pagespeed.svg?branch=master)](https://travis-ci.com/cloudweeb/cloudweeb.mod_pagespeed)
 
 Ansible role to install mod_pagespeed on apache web server
 

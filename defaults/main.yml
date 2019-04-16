@@ -7,7 +7,7 @@ pagespeed_cpanel: false
 # ---------------------
 
 # Set true if wants to activate PageSpeed module
-# If your server for shared hosting it's better to turning off PageSpeed on a global level 
+# If your server for shared hosting it's better to turning off PageSpeed on a global level
 # and only enabling it for the virtual hosts that need it
 pagespeed_active: false
 

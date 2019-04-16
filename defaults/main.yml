@@ -1,2 +1,34 @@
 ---
+
+# set to true if the server uses cPanel
 pagespeed_cpanel: false
+
+# Pagespeed Main Config
+# ---------------------
+
+# Set true if wants to activate PageSpeed module
+# If your server for shared hosting it's better to turning off PageSpeed on a global level 
+# and only enabling it for the virtual hosts that need it
+pagespeed_active: false
+
+# PageSpeed cache path
+pagespeed_cache_path: /var/cache/mod_pagespeed/
+
+# PageSpeed log directory
+pagespeed_log_dir: /var/log/pagespeed
+
+# PageSpeed Filters
+# -----------------
+
+# PageSpeed rewrite levels, set to PassThrough, CoreFilters, or OptimizeForBandwidth
+# Default is CoreFilters
+pagespeed_rewrite_level: CoreFilters
+
+# List of specific filters that wants to enable
+pagespeed_enable_filters: []
+
+# List of specific filters that wants to disable
+pagespeed_disable_filters: []
+
+# List of special filters that are not allowed to be activated
+pagespeed_forbid_filters: []

@@ -21,6 +21,3 @@ galaxy_info:
     - apache
     - web
     - webserver
-
-dependencies:
-  - geerlingguy.apache

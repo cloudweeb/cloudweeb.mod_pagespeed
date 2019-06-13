@@ -1,55 +1,45 @@
 {% if ansible_os_family == 'RedHat' %}
 <IfModule !mod_version.c>
-  LoadModule version_module {{ 'modules' if pagespeed_cpanel else pagespeed_apache_module_dir }}/mod_version.so
+    LoadModule version_module modules/mod_version.so
 </IfModule>
 <IfVersion < 2.4>
-  LoadModule pagespeed_module {{ 'modules' if pagespeed_cpanel else pagespeed_apache_module_dir }}/mod_pagespeed.so
+    LoadModule pagespeed_module modules/mod_pagespeed.so
 </IfVersion>
 <IfVersion >= 2.4.2>
-{%  if not pagespeed_cpanel|bool %}
-  <IfModule !access_compat_module>
-    LoadModule access_compat_module {{ pagespeed_apache_module_dir }}/mod_access_compat.so
-  </IfModule>
+{%  if not pagespeed_cpanel | bool %}
+    <IfModule !access_compat_module>
+        LoadModule access_compat_module modules/mod_access_compat.so
+    </IfModule>
+    <IfModule !mod_deflate.c>
+        LoadModule deflate_module modules/mod_deflate.so
+    </IfModule>
 {%  endif %}
-  LoadModule pagespeed_module {{ 'modules' if pagespeed_cpanel else pagespeed_apache_module_dir }}/mod_pagespeed_ap24.so
+    LoadModule pagespeed_module modules/mod_pagespeed_ap24.so
 </IfVersion>
-{%  if not pagespeed_cpanel|bool %}
-<IfModule !mod_deflate.c>
- LoadModule deflate_module {{ pagespeed_apache_module_dir }}/mod_deflate.so
-</IfModule>
-{%  endif %}
 {% endif %}
 
 <IfModule pagespeed_module>
-    ModPagespeed {{ 'on' if pagespeed_active|bool else 'off' }}
-
+    ModPagespeed {{ 'on' if pagespeed_active | bool else 'off' }}
     AddOutputFilterByType MOD_PAGESPEED_OUTPUT_FILTER text/html
 
     ModPagespeedFileCachePath   "{{ pagespeed_cache_path }}"
-
     ModPagespeedLogDir          "{{ pagespeed_log_dir }}"
-
-{% if ansible_os_family == 'RedHat' -%}
+{% if ansible_os_family == 'RedHat' %}
     ModPagespeedSslCertDirectory "/etc/pki/tls/certs"
     ModPagespeedSslCertFile /etc/pki/tls/cert.pem
-{% elif ansible_os_family == 'Debian' -%}
+{% elif ansible_os_family == 'Debian' %}
     ModPagespeedSslCertDirectory "/etc/ssl/certs"
 {% endif %}
-
     ModPagespeedRewriteLevel {{ pagespeed_rewrite_level }}
-
-{% if pagespeed_disable_filters is defined and pagespeed_disable_filters != [] -%}
-    ModPagespeedDisableFilters {{ pagespeed_disable_filters|join(',') }}
+{% if pagespeed_disable_filters is defined and pagespeed_disable_filters != [] %}
+    ModPagespeedDisableFilters {{ pagespeed_disable_filters | join(',') }}
 {% endif %}
-
-{% if pagespeed_enable_filters is defined and pagespeed_enable_filters != [] -%}
-    ModPagespeedEnableFilters {{ pagespeed_enable_filters|join(',') }}
+{% if pagespeed_enable_filters is defined and pagespeed_enable_filters != [] %}
+    ModPagespeedEnableFilters {{ pagespeed_enable_filters | join(',') }}
 {% endif %}
-
-{% if pagespeed_forbid_filters is defined and pagespeed_forbid_filters != [] -%}
-    ModPagespeedEnableFilters {{ pagespeed_forbid_filters|join(',') }}
+{% if pagespeed_forbid_filters is defined and pagespeed_forbid_filters != [] %}
+    ModPagespeedEnableFilters {{ pagespeed_forbid_filters | join(',') }}
 {% endif %}
-
     ModPagespeedFileCacheInodeLimit        500000
 
     <Location /pagespeed_admin>

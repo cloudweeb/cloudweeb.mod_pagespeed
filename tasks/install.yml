@@ -1,13 +1,4 @@
 ---
-- name: Get apache modules list
-  shell: /usr/sbin/apachectl -M 2>&1
-  register: pagespeed_mod_ruid_status
-  changed_when: false
-
-- name: Fail if mod_ruid2 is enabled
-  fail:
-    msg: Mod Pagespeed not compatible with Mod Ruid, please disable the Mod Ruid
-  when: "' ruid_module (shared)' in pagespeed_mod_ruid_status.stdout_lines"
 
 - name: Install ModPageSpeed module & repository
   apt:

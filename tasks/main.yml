@@ -1,9 +1,24 @@
 ---
+
 - name: Include OS-specific variables.
   include_vars: "{{ item }}"
   with_first_found:
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
+
+- name: Get apache modules list
+  shell: |
+    set -o pipefail
+    apachectl -M 2>/dev/null | awk '/ruid2_module/ {print $1}'
+  args:
+    executable: /bin/bash
+  register: pagespeed_mod_ruid_status
+  changed_when: false
+
+- name: Fail if mod_ruid2 is enabled
+  fail:
+    msg: Mod Pagespeed not compatible with Mod Ruid, please disable the Mod Ruid
+  when: pagespeed_mod_ruid_status.stdout
 
 - import_tasks: install.yml
 
